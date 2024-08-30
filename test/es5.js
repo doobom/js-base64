@@ -12,9 +12,14 @@ var is = function (a, e, m) {
     }
 };
 
-if ('extendString' in Base64){
+if (typeof Base64.extendString == 'function'){
+    delete String.prototype.fromBase64;
+    delete String.prototype.toBase64;
+    delete String.prototype.toBase64URI;
+    delete String.prototype.toBase64URL;
+    delete String.prototype.toUint8Array;
     Base64.extendString();
-    describe('String', function () {
+    describe('ES5 String', function () {
         it('.toBase64', is('小飼弾'.toBase64(), '5bCP6aO85by+'));
         it('.toBase64', is('小飼弾'.toBase64(true), '5bCP6aO85by-'));
         it('.toBase64URI', is('小飼弾'.toBase64URI(), '5bCP6aO85by-'));
